@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Rick and Morty - Detalles del Personaje</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .character-image {
+            max-width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .info-card {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8em;
+        }
+        .status-alive {
+            background-color: #28a745;
+            color: white;
+        }
+        .status-dead {
+            background-color: #dc3545;
+            color: white;
+        }
+        .status-unknown {
+            background-color: #6c757d;
+            color: white;
+        }
+        .episode-list {
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+        }
+        .episode-item {
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .episode-item:last-child {
+            border-bottom: none;
+        }
+        .empty-value {
+            color: #6c757d;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <a th:href="@{/characters}" class="btn btn-secondary mb-3">Volver a la lista</a>
+        
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <img th:src="${character.image}" th:alt="${character.name}" class="character-image">
+            </div>
+            <div class="col-md-8">
+                <div class="info-card">
+                    <h1 th:text="${character.name}">Nombre del personaje</h1>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>
+                                <strong>Estado:</strong> 
+                                <span th:class="${'status-badge ' + 
+                                    (character.status == 'Alive' ? 'status-alive' : 
+                                     character.status == 'Dead' ? 'status-dead' : 'status-unknown')}"
+                                    th:text="${character.status}">Estado</span>
+                            </p>
+                            <p><strong>Especie:</strong> <span th:text="${character.species}">Especie</span></p>
+                            <p><strong>Género:</strong> <span th:text="${character.gender}">Género</span></p>
+                            <p><strong>Tipo:</strong> <span th:text="${character.type ?: 'No especificado'}" class="empty-value">Tipo</span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Origen:</strong> <span th:text="${character.origin.name}">Origen</span></p>
+                            <p><strong>Ubicación:</strong> <span th:text="${character.location.name}">Ubicación</span></p>
+                            <p><strong>Creado:</strong> <span th:text="${character.created}">Fecha</span></p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h3>Episodios</h3>
+                        <div class="episode-list">
+                            <div th:each="episode : ${character.episode}" class="episode-item">
+                                <span th:text="${episode}">Episodio</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
