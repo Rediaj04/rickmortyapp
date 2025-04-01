@@ -3,28 +3,19 @@
 <head>
     <title>Rick and Morty - Personajes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .character-card {
-            transition: transform 0.2s;
-        }
-        .character-card:hover {
-            transform: scale(1.05);
-        }
-        .character-image {
-            height: 200px;
-            object-fit: cover;
-        }
-    </style>
+    <link th:href="@{/styles.css}" rel="stylesheet">
 </head>
 <body>
     <div class="container mt-4">
-        <h1 class="mb-4">Personajes de Rick and Morty</h1>
+        <h1 class="text-center mb-5">Rick and Morty Universe</h1>
         
         <!-- Formulario de búsqueda -->
-        <form th:action="@{/characters}" method="get" class="mb-4">
-            <div class="input-group">
-                <input type="text" name="name" th:value="${name}" class="form-control" placeholder="Buscar por nombre...">
-                <button type="submit" class="btn btn-primary">Buscar</button>
+        <form th:action="@{/characters}" method="get" class="mb-5">
+            <div class="input-group input-group-lg">
+                <input type="text" name="name" th:value="${name}" class="form-control" placeholder="Buscar personaje...">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Buscar
+                </button>
             </div>
         </form>
 
@@ -36,28 +27,39 @@
                     <div class="card-body">
                         <h5 class="card-title" th:text="${character.name}">Nombre del personaje</h5>
                         <p class="card-text">
-                            <strong>Estado:</strong> <span th:text="${character.status}">Estado</span><br>
-                            <strong>Especie:</strong> <span th:text="${character.species}">Especie</span>
-                        </p>
-                        <a th:href="@{/character/{id}(id=${character.id})}" class="btn btn-primary">Ver detalles</a>
+                            <strong>Estado:</strong> 
+                            <span th:class="${'status-badge ' + 
+                                (character.status == 'Alive' ? 'status-alive' : 
+                                 character.status == 'Dead' ? 'status-dead' : 'status-unknown')}"
+                                th:text="${character.status}">Estado</span><br>
+                            </p>
+                        <a th:href="@{/character/{id}(id=${character.id})}" class="btn btn-primary w-100">
+                            Explorar Personaje
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Paginación -->
-        <nav class="mt-4">
+        <nav class="mt-5">
             <ul class="pagination justify-content-center">
                 <li class="page-item" th:if="${currentPage > 1}">
-                    <a class="page-link" th:href="@{/characters(page=${currentPage - 1}, name=${name})}">Anterior</a>
+                    <a class="page-link" th:href="@{/characters(page=${currentPage - 1}, name=${name})}">
+                        <i class="fas fa-chevron-left"></i> Anterior
+                    </a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" th:href="@{/characters(page=${currentPage + 1}, name=${name})}">Siguiente</a>
+                    <a class="page-link" th:href="@{/characters(page=${currentPage + 1}, name=${name})}">
+                        Siguiente <i class="fas fa-chevron-right"></i>
+                    </a>
                 </li>
             </ul>
         </nav>
     </div>
 
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

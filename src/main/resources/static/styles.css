@@ -1,43 +1,229 @@
-/* Estilos globales */
+/* Variables de colores inspiradas en Rick and Morty */
+:root {
+    --portal-green: #00ff00;
+    --portal-blue: #00ffff;
+    --rick-blue: #1a1a3a;
+    --morty-yellow: #ffd700;
+    --portal-purple: #9b59b6;
+    --portal-pink: #ff69b4;
+    --portal-orange: #ff6b00;
+    --portal-red: #ff0000;
+}
+
+/* Estilos generales */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-}
-
-h2 {
-    color: #333;
-    text-align: center;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Estilo para el formulario de búsqueda */
-input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-/* Paginación */
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.pagination a {
-    margin: 0 5px;
-    padding: 10px 20px;
-    background-color: #007bff;
+    background: linear-gradient(135deg, var(--rick-blue), #000);
     color: white;
-    text-decoration: none;
-    border-radius: 5px;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
 }
 
-.pagination a:hover {
-    background-color: #0056b3;
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%2300ff00" opacity="0.1"/></svg>') repeat;
+    pointer-events: none;
+    z-index: -1;
+    animation: portal 20s linear infinite;
+}
+
+/* Animación del portal */
+@keyframes portal {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Estilos de las tarjetas de personajes */
+.character-card {
+    background: rgba(26, 26, 58, 0.8);
+    border: 2px solid var(--portal-green);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+}
+
+.character-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
+    border-color: var(--portal-blue);
+}
+
+.character-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(0, 255, 0, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+}
+
+.character-card:hover::before {
+    transform: translateX(100%);
+}
+
+.character-image {
+    height: 250px;
+    object-fit: cover;
+    border-bottom: 2px solid var(--portal-green);
+    transition: all 0.3s ease;
+}
+
+.character-card:hover .character-image {
+    filter: brightness(1.2);
+}
+
+.card-body {
+    background: rgba(26, 26, 58, 0.9);
+    padding: 1.5rem;
+}
+
+.card-title {
+    color: var(--morty-yellow);
+    font-size: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 1rem;
+}
+
+/* Estilos de los badges de estado */
+.status-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    margin: 0.5rem 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.status-alive {
+    background: linear-gradient(45deg, var(--portal-green), var(--portal-blue));
+    color: white;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.status-dead {
+    background: linear-gradient(45deg, var(--portal-red), var(--portal-orange));
+    color: white;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+.status-unknown {
+    background: linear-gradient(45deg, var(--portal-purple), var(--portal-pink));
+    color: white;
+    box-shadow: 0 0 10px rgba(155, 89, 182, 0.3);
+}
+
+/* Estilos de los botones */
+.btn-primary {
+    background: linear-gradient(45deg, var(--portal-green), var(--portal-blue));
+    border: none;
+    border-radius: 25px;
+    padding: 0.8rem 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(0, 255, 0, 0.5);
+    background: linear-gradient(45deg, var(--portal-blue), var(--portal-green));
+}
+
+/* Estilos del formulario de búsqueda */
+.form-control {
+    background: rgba(26, 26, 58, 0.8);
+    border: 2px solid var(--portal-green);
+    color: white;
+    border-radius: 25px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    background: rgba(26, 26, 58, 0.9);
+    border-color: var(--portal-blue);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+    color: white;
+}
+
+/* Estilos de la paginación */
+.pagination .page-link {
+    background: rgba(26, 26, 58, 0.8);
+    border: 2px solid var(--portal-green);
+    color: white;
+    margin: 0 5px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.pagination .page-link:hover {
+    background: var(--portal-green);
+    color: var(--rick-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+}
+
+/* Estilos del título principal */
+h1 {
+    color: var(--morty-yellow);
+    text-align: center;
+    font-size: 3rem;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--portal-green), 
+        var(--portal-blue), 
+        var(--portal-green), 
+        transparent
+    );
+}
+
+/* Efectos de hover en los textos */
+.card-text strong {
+    color: var(--portal-blue);
+    transition: all 0.3s ease;
+}
+
+.card-text strong:hover {
+    color: var(--portal-green);
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+/* Animación de carga */
+@keyframes glow {
+    0% { box-shadow: 0 0 5px var(--portal-green); }
+    50% { box-shadow: 0 0 20px var(--portal-blue); }
+    100% { box-shadow: 0 0 5px var(--portal-green); }
+}
+
+.loading {
+    animation: glow 2s infinite;
 }
