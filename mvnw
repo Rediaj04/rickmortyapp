@@ -18,6 +18,10 @@
 # under the License.
 # ----------------------------------------------------------------------------
 
+# Forzar el uso de Java 17
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+
 # ----------------------------------------------------------------------------
 # Apache Maven Wrapper startup batch script, version 3.3.2
 #
